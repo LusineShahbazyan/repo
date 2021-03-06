@@ -7,7 +7,7 @@
             Size can't be greater than 100.
 
 ##                                        ***Usage***
-                    [Go to](https://vue-pixel-art.now.sh)  [and have fun!]
+                    [Go to](https://vue-pixel-art.now.sh)
 
 ##                                         ***Todo***
 
