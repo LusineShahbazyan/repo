@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
+#include <iostream>
+#define PORT 8010
+
+int main (int argument, char const *argv[])
+{
+    int objSocket = 0, reader;
+    struct sockaddr_in servAddr;
+    std::string  message ;
+    char buffer[1024] = {0};
+    if ((objSocket = socket (AF_INET, SOCK_STREAM, 0 )) < 0)
+    {
+        std::cout << "Socket creation error !";
+        return -1;
+    }
+    servAddr.sin_family = AF_INET;
+    servAddr.sin_port = htons(PORT);
+
+        if(inet_pton ( AF_INET, "127.0.0.1", &servAddr.sin_addr)<=0)
+        {
+            std::cout <<"\nInvalid address ! This IP Address is not supported !\n";
+            return -1;
+        }
+        if(connect(objSocket, (struct sockaddr *)&servAddr, sizeof(servAddr )) < 0)
+        {
+            std::cout <<"Connection Failed : Can't establish a connection over this\
+        socket !"<< std::endl;
+            return -1;
+        }
+while(1)
+    {
+
+         std::cin >> message;
+
+         send (objSocket,  message, strlen(message), 0);
+         reader = read ( objSocket, buffer, 1024 );
+         std::cout << std::endl << buffer;
+    }
+    return 0;
+}
+
